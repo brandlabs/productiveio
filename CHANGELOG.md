@@ -9,3 +9,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Initial project setup
 - Implements `ApiClient` for making HTTP calls to Productiveio API.
 - Implements `ProductiveioRequestException` main exception class.
+- Implement `Boards`, `Bookings`, `Companies`, `People`, `Projects`, `TaskList`, `Tasks` and `TimeEntries` resource classes.

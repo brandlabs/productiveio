@@ -11,7 +11,7 @@ trait DeleteResource
 	 * @param string $id
 	 * @return void
 	 */
-    public function delete(string $id);
+    public function delete(string $id)
     {
         return $this->getApiClient()
             ->deleteResource($this->getEndpoint(),  $id);

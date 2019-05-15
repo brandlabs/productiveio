@@ -12,6 +12,8 @@ class ApiClient
     const CONTENT_TYPE = 'application/vnd.api+json';
     const BULK_CONTENT_TYPE = 'application/vnd.api+json; ext=bulk';
     const AUTH_TOKEN_HEADER_KEY = 'X-Auth-Token';
+    const CONTENT_TYPE_HEADER_KEY = 'Content-Type';
+    const ORGANIZATION_ID_HEADER_KEY = 'X-Organization-Id';
 
     /**
      * @var GuzzleHttp\Client $guzzleClient
@@ -33,19 +35,30 @@ class ApiClient
     private $authToken;
 
     /**
+     * Productiveio organisation id to be used as X-Organization-Id header when accessing
+     * organisation's data
+     *
+     * @var int
+     */
+    private $organisationId;
+
+    /**
      * ApiClient constructor
      *
      * @param string $authToken
+     * @param int $organisationId
      * @param float $timeout
      * @param GuzzleClient $guzzleClient
      */
     public function __construct(
         string $authToken,
-        float $timeout,
+        int $organisationId,
+        float $timeout = 60.0,
         GuzzleClient $guzzleClient = null
-        )
-    {
+        ) {
+
         $this->authToken = $authToken;
+        $this->organisationId = $organisationId;
         $this->timeout = $timeout;
 
         if (is_null($guzzleClient)) {
@@ -72,7 +85,7 @@ class ApiClient
     private function getRequestUrl(string $path)
     {
         // if API path does not start with '/', then prefix '/'
-        $path = (strpos($path, '/') === 0) $path : "/$path";
+        $path = (strpos($path, '/') === 0) ? $path : "/$path";
         return self::API_BASE_URL . $path;
     }
 
@@ -91,8 +104,11 @@ class ApiClient
     {
         try {
             $headersOptionKey = 'headers';
-            $headers = array_key_exists($headersOptionKey, $options) ? $options[$headersOptionKey] : [];
-            $headers[self::AUTH_TOKEN_HEADER_KEY] = $this->authToken;
+            // set API Auth token headers field
+            $options[$headersOptionKey][self::AUTH_TOKEN_HEADER_KEY] = $this->authToken;
+
+            // set Organisation Id headers field
+            $options[$headersOptionKey][self::ORGANIZATION_ID_HEADER_KEY] = $this->organisationId;
 
             $response = $this->guzzleClient->request($method, $uri, $options);
             $asAssocArray = true;
@@ -126,7 +142,12 @@ class ApiClient
             $requestParams['aggregates'] = '';
         }
 
-        $options = [];
+        $contentTypeHeaderKey = self::CONTENT_TYPE_HEADER_KEY;
+        $options = [
+            'headers' => [
+                "$contentTypeHeaderKey" => self::CONTENT_TYPE
+            ]
+        ];
         if (!empty($requestParams)) {
             $options['query'] = $requestParams;
         }

@@ -3,10 +3,21 @@
 namespace Brandlabs\Productiveio\Resources;
 
 use Brandlabs\Productiveio\ApiClient;
+use Brandlabs\Productiveio\BaseResource;
+use Brandlabs\Productiveio\Resources\Contracts\Crud;
+use Brandlabs\Productiveio\Resources\Contracts\GetList;
+use Brandlabs\Productiveio\Resources\Contracts\Update;
+use Brandlabs\Productiveio\Resources\Traits\ListResource;
+use Brandlabs\Productiveio\Resources\Traits\CreateResource;
+use Brandlabs\Productiveio\Resources\Traits\DeleteResource;
+use Brandlabs\Productiveio\Resources\Traits\GetResource;
+use Brandlabs\Productiveio\Resources\Traits\UpdateResource;
 
-class Projects extends BaseCrudResource
+class Projects extends BaseResource implements Crud, GetList
 {
-    const RESOURCE_PATH = '/api/v2/projects';
+    use CreateResource, DeleteResource, GetResource, ListResource, UpdateResource;
+
+    const RESOURCE_PATH = '/projects';
 
     public function __construct(ApiClient $apiClient)
     {

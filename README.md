@@ -1,21 +1,21 @@
 # brandlabs/productiveio
 ---------------------------------
 
-This package provides convenient access to the Productive.io REST API from applications written in PHP.
+This package provides convenient access to the Productive.io REST API for applications written in PHP.
 
 ## Development Setup
 
 ```
-$ git clone [TBD]
-$ cd productiveio-php
+$ git clone git@github.com:brandlabs/productive-io.git
+$ cd productive-io
 $ composer install
 ```
 
 ## Installation
 while in the root folder of the project where you want to use this library, do the following:
 ```
-$ composer config repositories.capsnplugs-spire-systems git git@gitlab.brandlabs.net:caps-n-plugs/spire-systems.git
-$ composer require capsnplugs/spire-systems [stable-version]
+$ composer config repositories.productiveio git git@github.com:brandlabs/productive-io.git
+$ composer require brandlabs/productiveio [stable-version]
 ```
 
 ## Code Example
@@ -25,74 +25,51 @@ $ composer require capsnplugs/spire-systems [stable-version]
 		...
 
 		use Brandlabs\Productiveio\ApiClient;
-		use Brandlabs\Productiveio\Resources\Inventory;
+		use Brandlabs\Productiveio\Resources\TaskLists;
 
-		$company = "spire_company_name";
-		$baseApiUrl = "spire server url";
-		$username = "spire_username";
-		$password = "spire_password";
-		$timeout = 60.0;
+		$authToken = '[Productive.io API auth token]';
+    $organisationId = '[productiveio organisation id]';
+		$timeout = 60.0; // optional, defaults to 60.0 seconds
 
 		$apiClient = new ApiClient($company, $baseApiUrl, $username, $password, $timeout);
 
-		$spireInventory = new Inventory($apiClient);
+		$taskListResource = new TaskLists($apiClient);
 
-		// gets an inventory item resource
-		$spireInventory->get(id);
+		// gets a Task List resource item
+		$id = '{set to task list id}';
+		$taskListResource->get($id);
 
-		//updates inventory item
-		$salesPayload = [
-			// fill in sales item properties
+		//updates Task List item
+		$taskListPayload = [
+			// fill in Task List item properties
 		];
-		$spireInventory->update(id, $salesPayload);
+		$taskListResource->update($id, $taskListPayload);
 
-		//creates inventory item
-		$salesPayload = [
-			// fill in sales item properties
+		//creates task list item
+		$taskListPayload = [
+			// fill in Task List item properties
 		];
-		$spireInventory->create($salesPayload);
+		$taskListResource->create($taskListPayload);
 
-		// deletes inventory item
-		$spireInventory->delete($id);
+		// deletes Task List item
+		$taskListResource->delete($id);
 
 		// get list
-		$start = 0;
-		$limit = 100;
-		$requestParams = []
-		$spireInventory->getCollection($start, $limit, $requestParams);
+		$requestParams = [
+			'page[number]' => 1
+		]
+		$taskListResource->getList($requestParams);
+
+		// get aggregate
+		$aggregate = true;
+		$taskListResource->getList($requestParams, $aggregate);
 ```
 
 ## API references
-- https://208.86.251.7:10880/doc/api/ or `server_address:port/docs/api`
+- `https://developer.productive.io` for more details on each Resource list request parameters.
 
 
 ## Tests
-```
-$ composer test
-```
-
-### Code analysis tools
-
-***lint/checkstyle*** with phpcs:
-
-```
-$ composer phpcs
-```
-
-***mess detector*** with phpmd:
-
-```
-$ composer phpmd
-```
-
-***copy & paste detector*** with phpcpd:
-
-```
-$ composer phpcpd
-```
-
-***phpunit, lint, mess detector*** in one command:
-
 ```
 $ composer test
 ```

@@ -18,13 +18,22 @@ abstract class BaseResource
     private $apiClient;
 
     /**
+     * Resource API endpoint path
+     *
+     * @var string
+     */
+	private $endpoint;
+
+    /**
      * BaseResource constructor
      *
      * @param ApiClient $apiClient for making API calls
+     * @param string $endpoint Resource API endpoint path
      */
-    public function __construct(ApiClient $apiClient)
+    public function __construct(ApiClient $apiClient, string $endpoint)
     {
         $this->apiClient = $apiClient;
+        $this->endpoint = $endpoint;
     }
 
     /**
@@ -35,5 +44,15 @@ abstract class BaseResource
     public function getApiClient()
     {
         return $this->apiClient;
+    }
+
+    /**
+     * Resource's API endpoint path
+     *
+     * @return string
+     */
+    public function getEndpoint()
+    {
+        return $this->endpoint;
     }
 }
