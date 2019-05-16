@@ -207,7 +207,7 @@ class ApiClient
      */
     public function updateResource(string $path, string $id, array $payload = [])
     {
-        $requestUrl = $this->getRequestUrl($path . $id);
+        $requestUrl = $this->getRequestUrl($path . "/$id");
         $options = [
             'json' => $payload,
         ];
@@ -225,7 +225,7 @@ class ApiClient
      */
     public function deleteResource(string $path, string $id)
     {
-        $requestUrl = $this->getRequestUrl($path . $id);
+        $requestUrl = $this->getRequestUrl($path . "/$id");
 
         $options = [];
         $options = $this->setContentTypeHeader($options, self::CONTENT_TYPE);
