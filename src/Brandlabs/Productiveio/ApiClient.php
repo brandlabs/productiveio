@@ -55,7 +55,7 @@ class ApiClient
         int $organisationId,
         float $timeout = 60.0,
         GuzzleClient $guzzleClient = null
-        ) {
+    ) {
 
         $this->authToken = $authToken;
         $this->organisationId = $organisationId;
@@ -94,7 +94,7 @@ class ApiClient
      *
      * @param  string $method  Request method, any of 'PUT', 'GET', 'POST', 'DELETE'
      * @param  string $uri     full request URL path e.g https://208.86.251.7:10880/api/v1/companies
-     * @param  array  $options Guzzle client request option 
+     * @param  array  $options Guzzle client request option
      * see http://docs.guzzlephp.org/en/stable/request-options.html#request-options
      *
      * @return mixed
@@ -117,6 +117,15 @@ class ApiClient
         } catch (RequestException $ex) {
             throw new ProductiveioRequestException($ex->getMessage(), $ex->getCode(), $ex);
         }
+    }
+
+    private function setContentTypeHeader(array $options, $contentType)
+    {
+        $contentTypeHeaderKey = self::CONTENT_TYPE_HEADER_KEY;
+        $options = $options ?? [];
+        $options['headers'][$contentTypeHeaderKey] = $contentType;
+
+        return $options;
     }
 
     /**
@@ -142,12 +151,9 @@ class ApiClient
             $requestParams['aggregates'] = '';
         }
 
-        $contentTypeHeaderKey = self::CONTENT_TYPE_HEADER_KEY;
-        $options = [
-            'headers' => [
-                "$contentTypeHeaderKey" => self::CONTENT_TYPE
-            ]
-        ];
+        $options = [];
+        $options = $this->setContentTypeHeader($options, self::CONTENT_TYPE);
+
         if (!empty($requestParams)) {
             $options['query'] = $requestParams;
         }
@@ -164,9 +170,12 @@ class ApiClient
      */
     public function getResource(string $path, string $id)
     {
-        $requestUrl = $this->getRequestUrl($path . $id);
+        $requestUrl = $this->getRequestUrl($path . "/$id");
 
-        return $this->request('GET', $requestUrl);
+        $options = [];
+        $options = $this->setContentTypeHeader($options, self::CONTENT_TYPE);
+
+        return $this->request('GET', $requestUrl, $options);
     }
 
     /**
@@ -179,9 +188,13 @@ class ApiClient
     public function createResource(string $path, array $payload = [])
     {
         $requestUrl = $this->getRequestUrl($path);
+
         $options = [
             'json' => $payload,
         ];
+
+        $options = $this->setContentTypeHeader($options, self::CONTENT_TYPE);
+
         return $this->request('POST', $requestUrl, $options);
     }
 
@@ -198,6 +211,8 @@ class ApiClient
         $options = [
             'json' => $payload,
         ];
+
+        $options = $this->setContentTypeHeader($options, self::CONTENT_TYPE);
         return $this->request('PATCH', $requestUrl, $options);
     }
 
@@ -212,6 +227,8 @@ class ApiClient
     {
         $requestUrl = $this->getRequestUrl($path . $id);
 
-        return $this->request('DELETE', $requestUrl);
+        $options = [];
+        $options = $this->setContentTypeHeader($options, self::CONTENT_TYPE);
+        return $this->request('DELETE', $requestUrl, $options);
     }
 }
