@@ -4,12 +4,14 @@ namespace Brandlabs\Productiveio\Resources;
 
 use Brandlabs\Productiveio\ApiClient;
 use Brandlabs\Productiveio\BaseResource;
-use Brandlabs\Productiveio\Resources\Contracts\Crud;
-use Brandlabs\Productiveio\Resources\Contracts\GetList;
-use Brandlabs\Productiveio\Resources\Traits\ListResource;
+use Brandlabs\Productiveio\Resources\Contracts\Create;
+use Brandlabs\Productiveio\Resources\Contracts\Delete;
+use Brandlabs\Productiveio\Resources\Contracts\Fetch;
+use Brandlabs\Productiveio\Resources\Contracts\Update;
 use Brandlabs\Productiveio\Resources\Traits\CreateResource;
 use Brandlabs\Productiveio\Resources\Traits\DeleteResource;
 use Brandlabs\Productiveio\Resources\Traits\GetResource;
+use Brandlabs\Productiveio\Resources\Traits\ListResource;
 use Brandlabs\Productiveio\Resources\Traits\UpdateResource;
 
 /**
@@ -17,9 +19,9 @@ use Brandlabs\Productiveio\Resources\Traits\UpdateResource;
  *
  * @package Brandlabs\Productiveio\Resources
  */
-class Bookings extends BaseResource implements Crud, GetList
+class Bookings extends BaseResource implements Create, Delete, Fetch, Update
 {
-    use CreateResource, DeleteResource, GetResource,ListResource, UpdateResource;
+    use CreateResource, DeleteResource, GetResource, ListResource, UpdateResource;
 
     const RESOURCE_PATH = '/bookings';
 

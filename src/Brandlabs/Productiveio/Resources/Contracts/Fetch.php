@@ -2,7 +2,7 @@
 
 namespace Brandlabs\Productiveio\Resources\Contracts;
 
-interface Fetch extends Get, List
+interface Fetch extends Get, GetList
 {
 
 }
