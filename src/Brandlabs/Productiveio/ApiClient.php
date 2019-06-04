@@ -82,7 +82,7 @@ class ApiClient
      * @param  string $path
      * @return string
      */
-    private function getRequestUrl(string $path)
+    public function getRequestUrl(string $path)
     {
         // if API path does not start with '/', then prefix '/'
         $path = (strpos($path, '/') === 0) ? $path : "/$path";
@@ -100,7 +100,7 @@ class ApiClient
      * @return mixed
      * @throws ProductiveioRequestException
      */
-    private function request(string $method, string $uri, array $options = [])
+    public function request(string $method, string $uri, array $options = [])
     {
         try {
             $headersOptionKey = 'headers';
