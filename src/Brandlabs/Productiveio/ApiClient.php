@@ -119,7 +119,7 @@ class ApiClient
         }
     }
 
-    private function setContentTypeHeader(array $options, $contentType)
+    public function setContentTypeHeader(array $options, $contentType)
     {
         $contentTypeHeaderKey = self::CONTENT_TYPE_HEADER_KEY;
         $options = $options ?? [];
