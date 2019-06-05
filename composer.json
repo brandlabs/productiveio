@@ -1,0 +1,40 @@
+{
+    "name": "brandlabs/productiveio",
+    "description": "A PHP SDK package for interacting Productive.io REST API",
+    "authors": [
+        {
+            "name": "Jideobi Ofomah Benedine",
+            "email": "jideobi.benedine@brandlabs.us"
+        }
+    ],
+    "homepage": "https://github.com/brandlabs/productiveio",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Brandlabs\\Productiveio\\": "src/Brandlabs/Productiveio/"
+        }
+    },
+    "require": {
+        "php": ">=7.2",
+        "guzzlehttp/guzzle": "^6.3.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8",
+        "squizlabs/php_codesniffer": "~2.0.0",
+        "leaphub/phpcs-symfony2-standard": "~2.0.0",
+        "phpmd/phpmd": "@stable",
+        "sebastian/phpcpd": "*"
+    },
+    "scripts": {
+        "phpunit": "vendor/bin/phpunit",
+        "phpcpd": "vendor/bin/phpcpd src",
+        "phpcs": "vendor/bin/phpcs --standard=./vendor/leaphub/phpcs-symfony2-standard/leaphub/phpcs/Symfony2/ --extensions=php src",
+        "phpcbf": "vendor/bin/phpcbf",
+        "phpmd": "vendor/bin/phpmd ./src text phpmd.xml",
+        "phpcpd-ci": "vendor/bin/phpcpd --log-pmd=./build/logs/phpcpd-report.xml  ./src",
+        "phpmd-ci": "vendor/bin/phpmd ./src xml phpmd.xml --reportfile ./build/logs/phpmd-report.xml",
+        "phpcs-ci": "vendor/bin/phpcs --standard=./vendor/leaphub/phpcs-symfony2-standard/leaphub/phpcs/Symfony2/ --report=checkstyle --report-file=./build/logs/phpcs-checkstyle-report.xml --extensions=php src",
+        "check": "vendor/bin/phpunit; composer phpcs; composer phpmd; composer phpcpd;",
+        "test": "phpunit"
+    }
+}
