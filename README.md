@@ -1,4 +1,4 @@
-# brandlabs/productiveio
+# Productive.io PHP SDK
 ---------------------------------
 
 This package provides convenient access to the Productive.io REST API for applications written in PHP.
@@ -6,7 +6,7 @@ This package provides convenient access to the Productive.io REST API for applic
 ## Development Setup
 
 ```
-$ git clone git@github.com:brandlabs/productive-io.git
+$ git clone git@github.com:brandlabs/productiveio.git
 $ cd productive-io
 $ composer install
 ```
@@ -14,7 +14,7 @@ $ composer install
 ## Installation
 while in the root folder of the project where you want to use this library, do the following:
 ```
-$ composer config repositories.productiveio git git@github.com:brandlabs/productive-io.git
+$ composer config repositories.productiveio git git@github.com:brandlabs/productiveio.git
 $ composer require brandlabs/productiveio [stable-version]
 ```
 
