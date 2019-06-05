@@ -1,7 +1,14 @@
 {
     "name": "brandlabs/productiveio",
-    "description": "A PHP SDK package for interacting Productive.io REST API.",
-    "authors": [],
+    "description": "A PHP SDK package for interacting Productive.io REST API",
+    "authors": [
+        {
+            "name": "Jideobi Ofomah Benedine",
+            "email": "jideobi.benedine@brandlabs.us"
+        }
+    ],
+    "homepage": "https://github.com/brandlabs/productiveio",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Brandlabs\\Productiveio\\": "src/Brandlabs/Productiveio/"
