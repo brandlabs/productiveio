@@ -1,9 +1,8 @@
 # Productive.io PHP SDK
----------------------------------
 
-This package provides convenient access to the Productive.io REST API for applications written in PHP.
+This package provides convenient access to the [Productive.io](https://www.productive.io/) REST API for applications written in PHP.
 
-## Development Setup
+## Getting Started
 
 ```
 $ git clone git@github.com:brandlabs/productiveio.git
@@ -11,14 +10,24 @@ $ cd productive-io
 $ composer install
 ```
 
-## Installation
+### Installation
+
 while in the root folder of the project where you want to use this library, do the following:
 ```
 $ composer config repositories.productiveio git git@github.com:brandlabs/productiveio.git
 $ composer require brandlabs/productiveio [stable-version]
 ```
 
-## Code Example
+### Prerequisites
+
+PHP 7.2+
+
+### Tests
+```
+$ composer test
+```
+
+## Example
 
 ```PHP
 <?php
@@ -28,7 +37,7 @@ $ composer require brandlabs/productiveio [stable-version]
 		use Brandlabs\Productiveio\Resources\TaskLists;
 
 		$authToken = '[Productive.io API auth token]';
-    $organisationId = '[productiveio organisation id]';
+		$organisationId = '[productiveio organisation id]';
 		$timeout = 60.0; // optional, defaults to 60.0 seconds
 
 		$apiClient = new ApiClient($company, $baseApiUrl, $username, $password, $timeout);
@@ -65,14 +74,16 @@ $ composer require brandlabs/productiveio [stable-version]
 		$taskListResource->getList($requestParams, $aggregate);
 ```
 
-## API references
+## Notes
+
+### API References
 - `https://developer.productive.io` for more details on each Resource list request parameters.
 
-
-## Tests
-```
-$ composer test
-```
+## Authors
+* Jideobi Ofomah Benedine
 
 ## License
 
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+[![alt text](./assets/images/brandlabs.png)](http://www.brandlabs.us/?utm_source=gitlab&utm_medium=technology_referral&utm_campaign=brandlabs-productiveio)
